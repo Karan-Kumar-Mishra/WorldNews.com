@@ -1,40 +1,24 @@
+
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Page from './Page';
+import Navbar from './Navbar'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Page type={"Word"}/>,
-  },
-  {
-    path: '/entertainment',
-    element: <Page type={"Entertainment"} />,
-  },
-  {
-    path: '/world',
-    element: <Page type={"World"} />,
+export default function Rout(){
+  return (
+    <Router>
+      <Navbar/>
+        <Routes>
+          <Route path="/" element={<Page type={"world"} />} />
+          <Route path="/entertainment" element={<Page type={"entertainment"} />} />
+          <Route path="/world" element={<Page type={"world"} />} />
+          <Route path="/business" element={<Page type={"business"} />} />
+          <Route path="/sport" element={<Page type={"sport"}/>} />
+          <Route path="/science" element={<Page type={"science"}/>} />
+          <Route path="/technology" element={<Page type={"technology"} />} />
+        </Routes>
+    </Router>
+  );
+};
 
-  },
-  {
-    path: '/business',
-    element: <Page type={"Business"} />,
-  },
-  {
-    path: '/sport',
-    element: <Page type={"Sport"} />,
-  },
-  {
-    path: '/science',
-    element: <Page type={"Science"} />,
-  },
-  {
-    path: '/technology',
-    element: <Page type={"Technology"} />,
-  }
-]);
 
-export default function Rout() {
-  return <RouterProvider router={router} />;
-}

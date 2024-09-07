@@ -1,6 +1,6 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link, BrowserRouter as Router } from 'react-router-dom'
+import { Disclosure, DisclosureButton, DisclosurePanel,  } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom'
 const navigation = [
   { name: 'World', href: '/world', current: true },
   { name: 'Entertainment', href: '/entertainment', current: false },
@@ -18,7 +18,7 @@ function classNames(...classes) {
 
 export default function Example() {
   return (
-    <Router>
+
 
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -82,6 +82,6 @@ export default function Example() {
         </div>
       </DisclosurePanel>
     </Disclosure>
-          </Router>
+        
   )
 }
