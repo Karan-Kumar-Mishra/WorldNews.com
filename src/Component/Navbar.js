@@ -1,6 +1,11 @@
-import { Disclosure, DisclosureButton, DisclosurePanel,  } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import NewsContext from './Context/NewsContext'
+import imagelogo from './img.png'
+import { useContext } from 'react'
+
+
 const navigation = [
   { name: 'World', href: '/world', current: true },
   { name: 'Entertainment', href: '/entertainment', current: false },
@@ -17,9 +22,9 @@ function classNames(...classes) {
 }
 
 export default function Example() {
+  console.log("image",localStorage.getItem('picture'))
+  const { logOut}=useContext(NewsContext);
   return (
-
-
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
@@ -35,11 +40,10 @@ export default function Example() {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
               <img
-                style={{borderRadius:"50%"}}
                 alt="Your Company"
-                src="https://imgs.search.brave.com/sKpRreBpKQWP3586cTw_x2WCo9zV3PF_3b9-yLazxVY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA3LzUyLzEzLzM0/LzM2MF9GXzc1MjEz/MzQxNV9aUVNmTFNO/U3E1NXdWR2FUaVFr/amRuclloMHZvTEh0/di5qcGc"
-                className="h-8 w-auto"
-                />
+                src={imagelogo}
+                className="h-8 w-auto rounded-3xl"
+              />
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
@@ -52,36 +56,79 @@ export default function Example() {
                       item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium',
                     )}
-                    >
+                  >
                     {item.name}
                   </Link>
                 ))}
               </div>
             </div>
           </div>
-     
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <button
+              type="button"
+              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+            >
+              <span className="absolute -inset-1.5" />
+              <span className="sr-only">View notifications</span>
+              <BellIcon aria-hidden="true" className="h-6 w-6" />
+            </button>
+
+            {/* Profile dropdown */}
+            <Menu as="div" className="relative ml-3">
+              <div>
+                <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <span className="absolute -inset-1.5" />
+                  <span className="sr-only">Open user menu</span>
+                  <img
+                    alt=""
+                    src="https://lh3.googleusercontent.com/a/ACg8ocLAZ5lBQ_AvmmS2_o5il1zuhLXmsq6Gd7e_j09-rWu99PTVL0Q=s96-c"
+                    className="h-8 w-8 rounded-full"
+                  />
+                </MenuButton>
+              </div>
+              <MenuItems
+                transition
+                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+              >
+                <MenuItem>
+                  <a href="#" className="block px-4 py-2 text-sm text-black data-[focus]:bg-slate-900 data-[focus]:text-white">
+                    Your Profile
+                  </a>
+                </MenuItem>
+                <MenuItem>
+                  <a href="#" className="block px-4 py-2 text-sm text-black data-[focus]:bg-slate-900 data-[focus]:text-white">
+                    Settings
+                  </a>
+                </MenuItem>
+                <MenuItem>
+                  <a onClick={logOut} className="block px-4 py-2 text-sm text-black data-[focus]:bg-slate-900 data-[focus]:text-white">
+                    Sign out
+                  </a>
+                </MenuItem>
+              </MenuItems>
+            </Menu>
+          </div>
         </div>
       </div>
 
       <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pb-3 pt-2">
           {navigation.map((item) => (
-            <div
+            <DisclosureButton
               key={item.name}
               as="a"
-              to={item.href}
+              href={item.href}
               aria-current={item.current ? 'page' : undefined}
               className={classNames(
                 item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                 'block rounded-md px-3 py-2 text-base font-medium',
               )}
-              >
+            >
               {item.name}
-            </div>
+            </DisclosureButton>
           ))}
         </div>
       </DisclosurePanel>
     </Disclosure>
-        
   )
 }
