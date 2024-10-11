@@ -2,7 +2,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Page from './Page';
-import Navbar from './Navbar'
 import Login from './Login';
 export default function Rout(){
 
