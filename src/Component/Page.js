@@ -23,7 +23,7 @@ export default function Page(props) {
     GetNews(props.type).then((res) => {
       setresults(res.results);
       settotal(res.totalResults);
-                   
+                       
       const newItems = res.results.map((res, index) => {
         const uniqueKey = nanoid(); 
   

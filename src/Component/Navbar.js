@@ -13,7 +13,7 @@ import NewsContext from "./Context/NewsContext";
 import imagelogo from "./img.png";
 import { useContext } from "react";
 import { nanoid } from "nanoid";
-
+import { useEffect } from "react";
 const navigation = [
   { name: "World", href: "/world", current: true },
   { name: "Entertainment", href: "/entertainment", current: false },
@@ -29,7 +29,12 @@ function classNames(...classes) {
 }
 
 export default function Example() {
-  const { logOut } = useContext(NewsContext);
+  const { logOut,profilePic,setprofilePic } = useContext(NewsContext);
+ useEffect(()=>{
+    console.log(typeof( localStorage.getItem('picture')))
+    let a= localStorage.getItem('picture')
+    setprofilePic(a)
+    },[])
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -95,7 +100,8 @@ export default function Example() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     alt=""
-                    src="https://lh3.googleusercontent.com/a/ACg8ocLAZ5lBQ_AvmmS2_o5il1zuhLXmsq6Gd7e_j09-rWu99PTVL0Q=s96-c"
+                    src={profilePic || localStorage.getItem('picture')}
+                   
                     className="h-8 w-8 rounded-full"
                   />
                 </MenuButton>

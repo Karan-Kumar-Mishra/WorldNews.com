@@ -2,7 +2,7 @@ import React, {  useState } from "react";
 import NewsContext from "./NewsContext";
 import axios from "axios";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
-
+import DefaultUserPic from '../user.png'
 const MyProvider = ({ children }) => {
   const [newsinfo, setnewsinfo] = useState({});
   const [total, settotal] = useState(10);
@@ -10,6 +10,7 @@ const MyProvider = ({ children }) => {
   const [items, setitems] = useState([]);
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
+  const [profilePic,setprofilePic]=useState(DefaultUserPic);
   const login = useGoogleLogin({
     onSuccess: (codeResponse) =>{
       setUser(codeResponse)
@@ -42,6 +43,7 @@ const MyProvider = ({ children }) => {
           localStorage.setItem('email',res.data.email)
           localStorage.setItem('name',res.data.name)
           localStorage.setItem('picture',res.data.picture)
+        
         })
         .catch((err) => console.log(err));
     }
@@ -65,6 +67,8 @@ const MyProvider = ({ children }) => {
         login,
         logOut,
         GetUserInfo,
+        profilePic,
+        setprofilePic
       }}
     >
       {children}
