@@ -1,8 +1,10 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import NewsContext from "./NewsContext";
 import axios from "axios";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
-import DefaultUserPic from '../user.png'
+import DefaultUserPic from "../user.png";
+
+
 const MyProvider = ({ children }) => {
   const [newsinfo, setnewsinfo] = useState({});
   const [total, settotal] = useState(10);
@@ -10,12 +12,11 @@ const MyProvider = ({ children }) => {
   const [items, setitems] = useState([]);
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
-  const [profilePic,setprofilePic]=useState(DefaultUserPic);
+  const [profilePic, setprofilePic] = useState(DefaultUserPic);
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) =>{
-      setUser(codeResponse)
-
-    } ,
+    onSuccess: (codeResponse) => {
+      setUser(codeResponse);
+    },
     onError: (error) => console.log("Login Failed:", error),
   });
 
@@ -23,8 +24,9 @@ const MyProvider = ({ children }) => {
     googleLogout();
     setProfile(null);
     localStorage.clear();
+    window.location = "/";
   };
- 
+
   const GetUserInfo = () => {
     if (user) {
       axios
@@ -39,11 +41,10 @@ const MyProvider = ({ children }) => {
         )
         .then((res) => {
           setProfile(res.data);
-         // console.log("info=> ",res.data)
-          localStorage.setItem('email',res.data.email)
-          localStorage.setItem('name',res.data.name)
-          localStorage.setItem('picture',res.data.picture)
-        
+          // console.log("info=> ",res.data)
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("name", res.data.name);
+          localStorage.setItem("picture", res.data.picture);
         })
         .catch((err) => console.log(err));
     }
@@ -68,7 +69,7 @@ const MyProvider = ({ children }) => {
         logOut,
         GetUserInfo,
         profilePic,
-        setprofilePic
+        setprofilePic,
       }}
     >
       {children}

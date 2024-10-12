@@ -7,13 +7,13 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import NewsContext from "./Context/NewsContext";
 import imagelogo from "./img.png";
 import { useContext } from "react";
 import { nanoid } from "nanoid";
-import { useEffect } from "react";
+
 const navigation = [
   { name: "World", href: "/world", current: true },
   { name: "Entertainment", href: "/entertainment", current: false },
@@ -29,12 +29,9 @@ function classNames(...classes) {
 }
 
 export default function Example() {
-  const { logOut,profilePic,setprofilePic } = useContext(NewsContext);
- useEffect(()=>{
-    console.log(typeof( localStorage.getItem('picture')))
-    let a= localStorage.getItem('picture')
-    setprofilePic(a)
-    },[])
+  const { logOut, profilePic } = useContext(NewsContext);
+
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -66,7 +63,7 @@ export default function Example() {
               <div className="flex space-x-4">
                 {navigation.map((item) => (
                   <Link
-                    key={nanoid() }
+                    key={nanoid()}
                     to={item.href}
                     aria-current={item.current ? "page" : undefined}
                     className={classNames(
@@ -86,11 +83,7 @@ export default function Example() {
             <button
               type="button"
               className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="sr-only">View notifications</span>
-              <BellIcon aria-hidden="true" className="h-6 w-6" />
-            </button>
+            ></button>
 
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">
@@ -98,22 +91,22 @@ export default function Example() {
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">Open user menu</span>
+               
                   <img
                     alt=""
-                    src={profilePic || localStorage.getItem('picture')}
-                   
-                    className="h-8 w-8 rounded-full"
+                   src={(localStorage.getItem('picture')) ?  localStorage.getItem('picture') : profilePic } 
+                   className="h-8 w-8 rounded-full"
                   />
                 </MenuButton>
               </div>
               <MenuItems
                 transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-black py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
               >
                 <MenuItem>
                   <a
                     onClick={logOut}
-                    className="block px-4 py-2 text-sm text-black data-[focus]:bg-slate-900 data-[focus]:text-white"
+                    className="block px-4 py-2 text-sm text-white bg-slate-950"
                   >
                     Sign out
                   </a>
